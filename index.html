@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table</title>
+    <style type="text/css">
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 95vh;
+            text-align: center;
+            user-select: none;
+        }
+        :root{
+            --bg: red;
+        }
+        table td {
+            padding: 30px;
+            border: 1px solid black;
+        }
+        td {
+            background-color: var(--bg, red);
+        }
+        .one_row .two_col {
+            color: royalblue;
+            font-style: italic;
+        }
+        td.target {
+            background: transparent;
+            border: 2px solid black;
+        }
+       
+    </style>
+    
+</head>
+<body>
+    <div class="body">
+        <table id="myTbl">
+            <tr class="one_row">
+                <td id="one" class="one_col">1</td>
+                <td id="two" class="two_col">2</td>
+                <td id="three" class="three_col target">3</td>
+            </tr>
+            <tr class="two_row">
+                <td id="four" class="one_col">4</td>
+                <td id="five" class="two_col">5</td>
+                <td id="six" class="three_col">6</td>
+            </tr>
+            <tr class="three_row">
+                <td id="seven" class="one_col">7</td>
+                <td id="eight" class="two_col">8</td>
+                <td id="nine" class="three_col">9</td>
+            </tr>
+            <tr class="four_row">
+                <td id="ten" class="one_col">10</td>
+                <td id="eleven" class="two_col">11</td>
+                <td id="twelмe" class="three_col">12</td>
+            </tr>
+           
+            <form>
+                <p>Укажите цвет: <input type="color" id="colorPicker" value="#ff0000">
+                <select onchange="optionsTarg()" name="sel_col" id="select">
+                    <option value=""></option>
+                </select>
+                <input type="button" value="Выбрать" onclick=myFunc()>
+                </p>
+            </form>
+        </table>
+    </div>
+</body>
+<script>
+    let tds = document.getElementById('myTbl');
+    let colorPicker = document.getElementById('colorPicker');
+
+
+    function myFunc() {
+
+        hide();
+
+    }
+
+   
+
+    function watchColorPicker(event) {
+        document.querySelectorAll("td").forEach(function (p) {
+            if (!p.classList.contains('target')) {
+            p.setAttribute("style", "--bg: " + event.target.value);
+            }
+        })
+    }
+
+    function hide(e) {
+
+        if (e.target.id!='myTbl') {
+            e.target.classList.add('target');
+        } else return
+
+        document.querySelectorAll("td").forEach(function (p) {
+            if (p.classList.contains('target') && e.target != p) {
+                p.classList.remove('target');
+                p.setAttribute("style", "--bg: " + colorPicker.value);
+            }
+        })
+        selectedTarg();
+    }
+
+    function createSelect() {
+
+        let select = document.querySelector('select');
+        let html = '';
+        let td = document.querySelectorAll("td");
+
+        for (let i=0; i<td.length; i++) {
+            html += '<option value="' + td[i].id +'">' + td[i].innerHTML + '</option>'
+        }
+
+        select.innerHTML = html;
+
+    }
+    function selectedTarg() {
+
+        let option = document.querySelectorAll('option');
+
+        for (let i = 0; i<option.length; i++) {
+            if (document.querySelector('.target').id == option[i].value) {
+                option[i].selected = true;
+            }
+        }
+
+    }
+
+    function optionsTarg() {
+
+        let select = document.querySelector('select')
+        let td = document.querySelectorAll("td");
+
+        document.querySelector('.target').classList.remove('target')
+
+        for (let i = 0; i < td.length; i++) {
+            if (select.value == td[i].id) {
+                td[i].classList.add('target');
+            }
+        }
+
+    }
+
+    window.onload = colorPicker.addEventListener("change", watchColorPicker);
+    window.onload = tds.addEventListener('click', hide);
+    window.onload = createSelect(), selectedTarg();
+</script>
+</html>
