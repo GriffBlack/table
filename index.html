@@ -6,13 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Table</title>
     <style type="text/css">
+        * {
+           padding: 0;
+           margin: 0; 
+        }
         body {
+            height: 95vh;
+        }
+        .table_form {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 95vh;
             text-align: center;
             user-select: none;
+            height: 90%;
+        }
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+        .form_head {
+            display: flex;
+            justify-content: space-between;
+        }
+        .form_text, .form_input {
+            display: flex;
+            flex-direction: column;
+        }
+        label, input, p, select {
+            margin: 5px;
+        }
+        .rows, .cols {
+            width: 3em;
+        }
+        #select {
+            width: 3.5em;
         }
         :root{
             --bg: red;
@@ -37,7 +66,27 @@
     
 </head>
 <body>
-    <div class="body">
+    <header>
+        <form class="form_head">
+            <div class="form_text">
+                <label for="rows">Количество рядов</label>
+                <label for="cols">Количество колонок</label>
+                <p class="form_color">Укажите цвет: <input type="color" id="colorPicker" value="#ff0000">
+                
+                    <!-- <input type="button" value="Выбрать" onclick=myFunc()> -->
+                </p>
+            </div>
+            
+            <div class="form_input">
+                <input class="rows" type="number" min="1" value="3">
+                <input class="cols" type="number" min="1" value="4">
+                <select onchange="optionsTarg()" name="sel_col" id="select">
+                    <option value=""></option>
+                </select>
+            </div>
+        </form>
+    </header>
+    <div class="table_form">
         <table id="myTbl">
             <tr class="one_row">
                 <td id="one" class="one_col">1</td>
@@ -60,25 +109,20 @@
                 <td id="twelмe" class="three_col">12</td>
             </tr>
            
-            <form>
-                <p>Укажите цвет: <input type="color" id="colorPicker" value="#ff0000">
-                <select onchange="optionsTarg()" name="sel_col" id="select">
-                    <option value=""></option>
-                </select>
-                <input type="button" value="Выбрать" onclick=myFunc()>
-                </p>
-            </form>
+           
         </table>
     </div>
 </body>
 <script>
     let tds = document.getElementById('myTbl');
-    let colorPicker = document.getElementById('colorPicker');
+    // let colorPicker = document.getElementById('colorPicker');
+
+    function createTable() {
+        
+    }
 
 
     function myFunc() {
-
-        hide();
 
     }
 
@@ -147,6 +191,7 @@
 
     }
 
+    window.unload = createTable();
     window.onload = colorPicker.addEventListener("change", watchColorPicker);
     window.onload = tds.addEventListener('click', hide);
     window.onload = createSelect(), selectedTarg();
