@@ -34,14 +34,18 @@
             display: flex;
             flex-direction: column;
         }
-        label, input, p, select {
+        label, input {
             margin: 5px;
+        }
+        p, select {
+            margin: 3px;
         }
         .rows, .cols {
             width: 3em;
         }
         #select {
-            width: 3.5em;
+            width: 3m;
+            margin-top: 13px;
         }
         :root{
             --bg: red;
@@ -49,7 +53,6 @@
         table td {
             height: 80px;
             width: 80px;
-            /* padding: 30px; */
             border: 1px solid black;
         }
         td {
@@ -70,14 +73,12 @@
                 <label for="rows">Количество рядов</label>
                 <label for="cols">Количество колонок</label>
                 <p class="form_color">Укажите цвет: <input type="color" id="colorPicker" value="#ff0000">
-                
-                    <!-- <input type="button" value="Выбрать" onclick=myFunc()> -->
                 </p>
             </div>
             
             <div class="form_input">
-                <input class="rows" type="number" min="1" value="4">
-                <input class="cols" type="number" min="1" value="3">
+                <input class="rows" type="number" min="1" value="4" onchange="myFunc()">
+                <input class="cols" type="number" min="1" value="3" onchange="myFunc()">
                 <select onchange="optionsTarg()" name="sel_col" id="select">
                     <option value=""></option>
                 </select>
@@ -85,35 +86,11 @@
         </form>
     </header>
     <div class="table_form">
-        <table id="myTbl">
-            <!-- <tr class="one_row">
-                <td id="one" class="one_col">1</td>
-                <td id="two" class="two_col">2</td>
-                <td id="three" class="three_col target">3</td>
-            </tr>
-            <tr class="two_row">
-                <td id="four" class="one_col">4</td>
-                <td id="five" class="two_col">5</td>
-                <td id="six" class="three_col">6</td>
-            </tr>
-            <tr class="three_row">
-                <td id="seven" class="one_col">7</td>
-                <td id="eight" class="two_col">8</td>
-                <td id="nine" class="three_col">9</td>
-            </tr>
-            <tr class="four_row">
-                <td id="ten" class="one_col">10</td>
-                <td id="eleven" class="two_col">11</td>
-                <td id="twelмe" class="three_col">12</td>
-            </tr> -->
-           
-           
-        </table>
+        <table id="myTbl"></table>
     </div>
 </body>
 <script>
     let tds = document.getElementById('myTbl');
-    // let colorPicker = document.getElementById('colorPicker');
 
     function createTable() {
         let x = document.querySelector('.rows').value
@@ -127,7 +104,6 @@
                     td.id = 'td'+num;
                     tr.appendChild(td);
                     num++;
-                    console.log(td.id);
                 }
                 tds.appendChild(tr);
             }
@@ -135,7 +111,10 @@
 
 
     function myFunc() {
-
+        tds.innerHTML = "";
+        createTable();
+        createSelect();
+        selectedTarg();
     }
 
    
@@ -174,6 +153,7 @@
         }
 
         select.innerHTML = html;
+        td[2].classList.add('target');
 
     }
     function selectedTarg() {
