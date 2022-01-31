@@ -47,15 +47,13 @@
             --bg: red;
         }
         table td {
-            padding: 30px;
+            height: 80px;
+            width: 80px;
+            /* padding: 30px; */
             border: 1px solid black;
         }
         td {
             background-color: var(--bg, red);
-        }
-        .one_row .two_col {
-            color: royalblue;
-            font-style: italic;
         }
         td.target {
             background: transparent;
@@ -78,8 +76,8 @@
             </div>
             
             <div class="form_input">
-                <input class="rows" type="number" min="1" value="3">
-                <input class="cols" type="number" min="1" value="4">
+                <input class="rows" type="number" min="1" value="4">
+                <input class="cols" type="number" min="1" value="3">
                 <select onchange="optionsTarg()" name="sel_col" id="select">
                     <option value=""></option>
                 </select>
@@ -88,7 +86,7 @@
     </header>
     <div class="table_form">
         <table id="myTbl">
-            <tr class="one_row">
+            <!-- <tr class="one_row">
                 <td id="one" class="one_col">1</td>
                 <td id="two" class="two_col">2</td>
                 <td id="three" class="three_col target">3</td>
@@ -107,7 +105,7 @@
                 <td id="ten" class="one_col">10</td>
                 <td id="eleven" class="two_col">11</td>
                 <td id="twelмe" class="three_col">12</td>
-            </tr>
+            </tr> -->
            
            
         </table>
@@ -118,7 +116,21 @@
     // let colorPicker = document.getElementById('colorPicker');
 
     function createTable() {
-        
+        let x = document.querySelector('.rows').value
+        let y = document.querySelector('.cols').value
+        let num = 1;
+            for (let  i=0; i<x; i++) {
+                let tr = document.createElement('tr')
+                for (let i = 0; i < y; i++) {
+                    let td = document.createElement('td')
+                    td.innerHTML = num;
+                    td.id = 'td'+num;
+                    tr.appendChild(td);
+                    num++;
+                    console.log(td.id);
+                }
+                tds.appendChild(tr);
+            }
     }
 
 
