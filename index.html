@@ -80,7 +80,6 @@
                 <input class="rows" type="number" min="1" value="4" onchange="myFunc()">
                 <input class="cols" type="number" min="1" value="3" onchange="myFunc()">
                 <select onchange="optionsTarg()" name="sel_col" id="select">
-                    <option value=""></option>
                 </select>
             </div>
         </form>
@@ -89,6 +88,9 @@
         <table id="myTbl"></table>
     </div>
 </body>
+
+
+
 <script>
     let tds = document.getElementById('myTbl');
 
@@ -144,16 +146,28 @@
 
     function createSelect() {
 
-        let select = document.querySelector('select');
-        let html = '';
+        // let select = document.querySelector('select');
+        // let html = '';
+        // let td = document.querySelectorAll("td");
+
+        // for (let i=0; i<td.length; i++) {
+        //     html += '<option value="' + td[i].id +'">' + td[i].innerHTML + '</option>'
+        // }
+
+        // select.innerHTML = html;
+        // td[2].classList.add('target');
+
+        let select = document.getElementById('select')
         let td = document.querySelectorAll("td");
-
-        for (let i=0; i<td.length; i++) {
-            html += '<option value="' + td[i].id +'">' + td[i].innerHTML + '</option>'
+        select.innerHTML = '';
+        for (let i = 0; i < td.length; i++) {
+           let option = document.createElement('option')
+           option.value = td[i].id;
+           option.innerHTML = td[i].innerHTML;
+           select.appendChild(option)
         }
-
-        select.innerHTML = html;
         td[2].classList.add('target');
+
 
     }
     function selectedTarg() {
